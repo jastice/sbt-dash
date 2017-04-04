@@ -1,0 +1,2 @@
+> dashDocset
+$ exists target/scala-2.12/simple.docset

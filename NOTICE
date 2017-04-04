@@ -1,0 +1,3 @@
+sbt plugin by Justin Kaeser
+
+uses Scala docset generator "sdocset" by Bogdan Popescu (Kapeli)
