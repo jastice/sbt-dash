@@ -10,7 +10,7 @@ object DashPlugin extends AutoPlugin {
   override def requires = JvmPlugin
 
   object DashKeys {
-    val dashGeneratorUri = settingKey[URI]("URI for the Dash docset generator")
+    val dashGeneratorUri = settingKey[URI]("URI for downloading the Dash sdocset generator")
     val dashGeneratorDownload = taskKey[File]("Download sdocset generator")
     val dashDocset = taskKey[File]("Create a Dash docset for the project")
   }
@@ -32,8 +32,8 @@ object DashPlugin extends AutoPlugin {
         val dashGeneratorArchive = dashGeneratorDir / "sdocset.tgz"
         IO.download(dashGeneratorUri.value.toURL, dashGeneratorArchive)
         val extract = s"tar -xf ${dashGeneratorArchive.getAbsolutePath} -C ${target.value}"
-        assert(extract.! == 0)
-        assert(dashGeneratorExecutable.exists())
+        require(extract.! == 0)
+        require(dashGeneratorExecutable.exists())
 
         dashGeneratorExecutable
       }
@@ -51,7 +51,7 @@ object DashPlugin extends AutoPlugin {
       val sdocset = dashGeneratorDownload.value
       val docCommand = s"${sdocset.getAbsolutePath} $docsetName $packname ${docsJar.getAbsolutePath} ${version.value}"
 
-      assert(docCommand.! == 0)
+      require(docCommand.! == 0, "failed to generate docset")
       docset
     }
   )
