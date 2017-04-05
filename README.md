@@ -1,14 +1,19 @@
 # sbt-dash
 
-Create Dash docsets with sbt
+Create [Dash](https://kapeli.com/dash) docsets with sbt
 
 
-## Building
+## Usage
 
-This plugin requires sbt 0.13.5+
+This only works on macOS.
 
-## Testing
+Install the plugin in `project/plugins.sbt`:
 
-Run `test` for regular unit tests.
+    addSbtPlugin("works.mesh" % "sbt-dash" % "0.1")
+    
+Generate Dash docset on the sbt shell:
 
-Run `scripted` for [sbt script tests](http://www.scala-sbt.org/0.13/docs/Testing-sbt-plugins.html).
+    > dashDocset
+    
+The result of the task is the `File` of the generated docset, which
+is placed as `projectName.docset` in the `target/scala-<version>/` directory.
