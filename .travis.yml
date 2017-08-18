@@ -4,8 +4,8 @@ jdk:
   - oraclejdk8
 
 script:
-  ## runs both regular tests and sbt-scripted integration tests
-  - sbt -Dfile.encoding=UTF8 test scripted
+  # can't run scripted because it requires osx, which is not available on travis: https://github.com/travis-ci/travis-ci/issues/2316
+  - sbt -Dfile.encoding=UTF8 test
 
 after_success:
   - '[[ $TRAVIS_BRANCH == "master" ]] || [[ $TRAVIS_BRANCH =~ ^v[0-9.]+$ ]] && sbt publish'
