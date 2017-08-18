@@ -1,15 +1,15 @@
 # sbt-dash
 
-Create [Dash](https://kapeli.com/dash) docsets with sbt
+Create [Dash](https://kapeli.com/dash) docsets with sbt.
 
 
 ## Usage
 
-This only works on macOS.
+This plugin only works under macOS with sbt 1.0.0+
 
 Install the plugin in `project/plugins.sbt`:
 
-    addSbtPlugin("works.mesh" % "sbt-dash" % "0.1")
+    addSbtPlugin("works.mesh" % "sbt-dash" % "1.0.0")
     
 Generate Dash docset on the sbt shell:
 

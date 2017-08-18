@@ -3,6 +3,7 @@ package works.mesh.sbt.dash
 import sbt._
 import sbt.Keys._
 import sbt.plugins.JvmPlugin
+import scala.sys.process._
 
 object DashPlugin extends AutoPlugin {
 
@@ -24,14 +25,16 @@ object DashPlugin extends AutoPlugin {
     dashGeneratorUri := uri("https://kapeli.com/feeds/zzz/sdocset.tgz"),
 
     dashGeneratorDownload := {
-      val dashGeneratorDir = target.value / "sdocset"
+      val targetValue = target.value
+      val dashGeneratorDir = targetValue / "sdocset"
       val dashGeneratorExecutable = dashGeneratorDir / "sdocset"
+      val generatorUrl = dashGeneratorUri.value.toURL
 
       if (dashGeneratorExecutable.exists()) dashGeneratorExecutable
       else {
         val dashGeneratorArchive = dashGeneratorDir / "sdocset.tgz"
-        IO.download(dashGeneratorUri.value.toURL, dashGeneratorArchive)
-        val extract = s"tar -xf ${dashGeneratorArchive.getAbsolutePath} -C ${target.value}"
+        download(generatorUrl, dashGeneratorArchive)
+        val extract = s"tar -xf ${dashGeneratorArchive.getAbsolutePath} -C $targetValue"
         require(extract.! == 0)
         require(dashGeneratorExecutable.exists())
 
@@ -41,7 +44,7 @@ object DashPlugin extends AutoPlugin {
 
     dashDocset := {
       val docsJar = (packageDoc in Compile).value
-      val docsetName = name.value
+      val docsetName = name.value.toLowerCase.replace("-","")
       val docset = docsJar.getParentFile / (docsetName + ".docset")
 
       val cross = CrossVersion(scalaVersion.value, scalaBinaryVersion.value)
@@ -56,7 +59,8 @@ object DashPlugin extends AutoPlugin {
     }
   )
 
-  override lazy val buildSettings = Seq()
-
-  override lazy val globalSettings = Seq()
+  private def download(url: URL, to: File) =
+    sbt.io.Using.urlInputStream(url) { inputStream =>
+     sbt.io.IO.transfer(inputStream, to)
+    }
 }
