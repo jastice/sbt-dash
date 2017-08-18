@@ -1,3 +1,6 @@
+ [ ![Download](https://api.bintray.com/packages/jastice/sbt-plugins/sbt-dash/images/download.svg) ](https://bintray.com/jastice/sbt-plugins/sbt-dash/_latestVersion)
+[![Build Status](https://travis-ci.org/jastice/sbt-dash.svg?branch=master)](https://travis-ci.org/jastice/sbt-dash)
+
 # sbt-dash
 
 Create [Dash](https://kapeli.com/dash) docsets with sbt.
