@@ -9,7 +9,7 @@ This plugin only works under macOS with sbt 1.0.0+
 
 Install the plugin in `project/plugins.sbt`:
 
-    addSbtPlugin("works.mesh" % "sbt-dash" % "1.0.0")
+    addSbtPlugin("works.mesh" % "sbt-dash" % "1.0")
     
 Generate Dash docset on the sbt shell:
 
