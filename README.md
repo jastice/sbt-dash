@@ -3,7 +3,8 @@
 
 # sbt-dash
 
-Create [Dash](https://kapeli.com/dash) docsets with sbt.
+Create [Dash](https://kapeli.com/dash) docsets for Scala API docs with sbt. 
+To create docsets for manuals, have a look at [scala-dash](https://github.com/cvogt/scala-dash)
 
 
 ## Usage
